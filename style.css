@@ -1,0 +1,755 @@
+.main-layout {
+	display: flex;
+	flex-direction: row;
+	height: calc(100vh - (100vh * 0.5 / 9));
+}
+
+.sidebar {
+	width: 25%; /* 4/16 da largura */
+	min-width: 200px;
+	max-width: 400px;
+	background: #ffffff;
+	border-right: 2px solid #d0d0d0;
+	box-sizing: border-box;
+	padding-top: 0;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow-y: auto;
+	position: relative;
+}
+
+.sidebar-title {
+	font-weight: bold;
+	font-size: 1.3rem;
+	padding: 1rem;
+	background: #c2d6b3;
+	border-bottom: 1px solid #b0b0b0;
+	text-align: center;
+	position: sticky;
+	top: 0;
+}
+
+.hours-list {
+	flex: 1;
+	flex-direction: column;
+	height: 100%;
+}
+
+.hour-divider {
+	min-height: 3.5em;
+	height: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	width: 100%;
+    color: #bbb;
+	background: #fff;
+	margin: 0.5em 0;
+}
+.hour-divider:before,
+.hour-divider:after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background: #bbb;
+	margin: 0 0.5rem;
+}
+
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100vh * 0.5 / 9); /* 0.5/9th of viewport height */
+    background: rgb(120, 155, 97);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc((100vh * 0.5 / 9) * 0.9);
+    z-index: 1000;
+    line-height: 1;
+    overflow: hidden;
+    /* Remove the duplicate position: fixed; */
+}
+
+.site-title {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	white-space: nowrap;
+	pointer-events: none;
+}
+.top-bar {
+	position: relative;
+}
+.mode-switch {
+	position: absolute;
+	right: 3vw;
+	top: 50%;
+	transform: translateY(-50%);
+	margin: 0;
+}
+
+body {
+    background: #f5f5f5;
+	margin: 0;
+	overflow: hidden; /* Disable body scrolling */
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 0;
+    overflow-y: auto;
+    height: 100vh; /* Full viewport height */
+    padding-top: 0; /* Add top padding for the top bar */
+    box-sizing: border-box; /* Include padding in height calculation */
+}
+
+.mode-switch {
+    margin-left: auto;
+    margin-right: 2vw;
+    display: flex;
+    align-items: center;
+    height: 70%;
+    cursor: pointer;
+    user-select: none;
+}
+.switch-track {
+	background: #e0e0e0;
+	border-radius: 999px;
+	width: 60px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	position: relative;
+	box-sizing: border-box;
+	padding: 0 4px;
+}
+.switch-thumb {
+	position: absolute;
+	top: 2px;
+	left: 4px;
+	width: 22px;
+	height: 22px;
+	background: #fff;
+	border-radius: 50%;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+	transition: none;
+	z-index: 3;
+}
+.dark-mode .switch-thumb {
+	left: 34px;
+	background: #222;
+}
+.dark-mode .switch-track {
+	background: #444;
+}
+
+body.dark-mode {
+    background: #181818;
+    color: #eee;
+}
+.dark-mode .top-bar {
+    color: #222;
+}
+.dark-mode .sidebar {
+    background: #232323;
+    border-right: 2px solid #333;
+}
+.dark-mode .sidebar-title {
+    background: #2e3a25;
+    border-bottom: 1px solid #333;
+    color: #eee;
+}
+.dark-mode .hour-divider {
+    background: #232323;
+    color: #888;
+}
+.dark-mode .hour-divider:before,
+.dark-mode .hour-divider:after {
+    background: #444;
+}
+
+/* Custom scrollbar for light mode */
+.sidebar::-webkit-scrollbar,
+.content::-webkit-scrollbar {
+    width: 10px;
+    background: #eee;
+}
+.sidebar::-webkit-scrollbar-thumb,
+.content::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 8px;
+}
+/* Custom scrollbar for dark mode */
+body.dark-mode .sidebar::-webkit-scrollbar,
+body.dark-mode .content::-webkit-scrollbar {
+    background: #232323;
+}
+body.dark-mode .sidebar::-webkit-scrollbar-thumb,
+body.dark-mode .content::-webkit-scrollbar-thumb {
+    background: #444;
+}
+
+
+/* Activities card styles */
+.activities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+    max-width: none;
+    padding: 1em;
+    box-sizing: border-box;
+    /* Remove the margin-top that was causing the weird space */
+    margin-top: 0px;
+    /* Add padding-top instead to account for the top bar */
+    padding-top: 19px;
+	margin-bottom: 0;
+	    /* Ensure full height and proper scrolling */
+    min-height: auto;
+}
+
+.activity-card {
+	background: #fff;
+	color: #222;
+	border-radius: 10px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+	padding: 1.2em 1.8em;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+	align-items: flex-start;
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 1em;
+	min-height: 80px;
+}
+
+.activity-card:last-child {
+    margin-bottom: 20px;
+}
+
+.activity-card .activity-row.first-line {
+	display: flex;
+	align-items: center;
+	gap: 0.3em;
+	font-size: 1em;
+	margin-bottom: 0.3em;
+}
+.activity-card .activity-row.second-line {
+	display: flex;
+	align-items: center;
+	gap: 0.3em;
+	font-size: 1em;
+	margin-bottom: 0.3em;
+}
+.activity-card .activity-row.third-line {
+	display: flex;
+	align-items: center;
+	gap: 0.3em;
+	font-size: 1em;
+}
+.activity-card .activity-title {
+	display: flex;
+	align-items: center;
+	height: 2em;
+	line-height: 2em;
+	font-size: 1.8em;
+	font-weight: bold;
+}
+.activity-card input[type="text"] {
+	width: 60px;
+	text-align: center;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 0.15em 0.3em;
+	font-size: 0.9em;
+}
+.activity-card input[type="number"] {
+	width: 2.2em;
+	text-align: center;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 0.15em 0.3em;
+	font-size: 0.9em;
+}
+.activity-card .toggle-btn {
+	background: #e0e0e0;
+	border: none;
+	border-radius: 999px;
+	padding: 0.3em 0.8em;
+	cursor: pointer;
+	font-weight: bold;
+	color: #333;
+	font-size: 0.8em;
+	margin-right: 0.3em;
+	transition: none;
+	min-width: 50px;
+	min-height: 1.4em;
+}
+.activity-card .toggle-btn.active {
+	background: #7c9e6b;
+	color: #fff;
+}
+.activity-card .time-digit {
+    width: 1em;
+    min-width: 1em;
+    max-width: 1em;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.05em 0.1em;
+    font-size: 0.9em;
+    margin: 0 0.02em;
+}
+.activity-card .time-sep {
+    margin: 0 0.08em;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+.activity-card .activity-icon {
+    width: 2em;
+    height: 2em;
+    min-width: 2em;
+    min-height: 2em;
+    max-width: 2em;
+    max-height: 2em;
+    background: #e0e0e0;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    margin-right: 0.8em;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    color: #555;
+}
+.activity-card .activity-icon[data-category="Higiene"] {
+    background: #c2d6b3;
+}
+.activity-card .activity-icon[data-category="Exercício"] {
+    background: #d6b3b3;
+}
+.activity-card .activity-icon[data-category="Pet"] {
+    background: #b3c2d6;
+}
+.dark-mode .activities-list {
+	color: #eee;
+}
+.dark-mode .activity-card {
+	background: #232323;
+	color: #eee;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.dark-mode .activity-card input[type="text"] {
+	background: #181818;
+	color: #eee;
+	border: 1px solid #444;
+}
+.dark-mode .activity-card input[type="number"] {
+	background: #181818;
+	color: #eee;
+	border: 1px solid #444;
+}
+.dark-mode .activity-card .toggle-btn {
+	background: #444;
+	color: #eee;
+}
+.dark-mode .activity-card .toggle-btn.active {
+	background: #7c9e6b;
+	color: #fff;
+}
+.dark-mode .activity-card .time-digit {
+    background: #181818;
+    color: #eee;
+    border: 1px solid #444;
+}
+.dark-mode .activity-card .activity-icon {
+    background: #333;
+    color: #bbb;
+}
+.dark-mode .activity-card .activity-icon[data-category="Higiene"] {
+    background: #2e3a25;
+}
+.dark-mode .activity-card .activity-icon[data-category="Exercício"] {
+    background: #3a2525;
+}
+.dark-mode .activity-card .activity-icon[data-category="Pet"] {
+    background: #25253a;
+}
+.add-to-list-btn {
+    background: #7c9e6b;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4em 0.8em;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-left: auto;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 40px;
+    position: relative;
+}
+
+.add-to-list-btn:hover {
+    background: #6b8e5a;
+    max-width: 120px;
+    padding: 0.4em 1.2em;
+}
+
+.add-to-list-btn::before {
+    content: "Add";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease;
+}
+
+.add-to-list-btn:hover::before {
+    content: "Add to list";
+}
+/* Add to list button */
+.add-to-list-btn {
+    background: #7c9e6b;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4em 0.8em;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-left: auto;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 40px;
+    position: relative;
+}
+
+.add-to-list-btn:hover {
+    background: #6b8e5a;
+    max-width: 120px;
+    padding: 0.4em 1.2em;
+}
+
+.add-to-list-btn::before {
+    content: "Add";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease;
+}
+
+.add-to-list-btn:hover::before {
+    content: "Add to list";
+}
+
+/* Hour list items as cards */
+.hour-item {
+    background: #fff;
+    color: #222;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    padding: 0.8em 1em;
+    margin: 0.3em 0.5em;
+    font-size: 0.85em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+    border: 1px solid #e8e8e8;
+}
+
+.hour-item-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-bottom: 0.2em;
+}
+
+.hour-item-icon {
+    width: 1.5em;
+    height: 1.5em;
+    min-width: 1.5em;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+}
+
+.hour-item-name {
+    flex: 1;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.hour-item-time {
+    font-weight: bold;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.hour-item-details {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    flex-wrap: wrap;
+    font-size: 0.85em;
+    color: #555;
+}
+
+.hour-item-field {
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+}
+
+/* Interactive elements for hour items */
+.hour-item-toggle-btn {
+    background: #e0e0e0;
+    border: none;
+    border-radius: 999px;
+    padding: 0.2em 0.6em;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    font-size: 0.8em;
+    margin-right: 0.2em;
+    transition: none;
+    min-width: 40px;
+    min-height: 1.2em;
+}
+
+.hour-item-toggle-btn.active {
+    background: #7c9e6b;
+    color: #fff;
+}
+
+.hour-item-input {
+    width: 2em;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.1em 0.2em;
+    font-size: 0.85em;
+    background: #fff;
+}
+
+.hour-item-text-input {
+    width: 60px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.1em 0.2em;
+    font-size: 0.85em;
+    background: #fff;
+}
+
+.hour-item-controls {
+    display: flex;
+    gap: 0.4em;
+    justify-content: flex-end;
+    margin-top: 0.3em;
+}
+
+.hour-item-btn {
+    background: #e0e0e0;
+    border: none;
+    border-radius: 6px;
+    padding: 0.3em 0.6em;
+    cursor: pointer;
+    font-size: 0.8em;
+    font-weight: bold;
+    transition: background 0.2s;
+    min-width: 3em;
+    color: #333;
+}
+
+.hour-item-btn:hover {
+    background: #d0d0d0;
+}
+
+.hour-item-btn.remove {
+    background: #f0a0a0;
+    color: #fff;
+}
+
+.hour-item-btn.remove:hover {
+    background: #e09090;
+}
+
+/* Category colors for hour item icons */
+.hour-item-icon[data-category="Higiene"] {
+    background: #c2d6b3;
+}
+.hour-item-icon[data-category="Exercício"] {
+    background: #d6b3b3;
+}
+.hour-item-icon[data-category="Pet"] {
+    background: #b3c2d6;
+}
+
+/* Dark mode styles */
+.dark-mode .hour-item {
+    background: #232323;
+    color: #eee;
+    border: 1px solid #333;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+}
+
+.dark-mode .hour-item-time {
+    color: #bbb;
+}
+
+.dark-mode .hour-item-details {
+    color: #ccc;
+}
+
+.dark-mode .hour-item-toggle-btn {
+    background: #444;
+    color: #eee;
+}
+
+.dark-mode .hour-item-toggle-btn.active {
+    background: #7c9e6b;
+    color: #fff;
+}
+
+.dark-mode .hour-item-input {
+    background: #181818;
+    color: #eee;
+    border: 1px solid #444;
+}
+
+.dark-mode .hour-item-text-input {
+    background: #181818;
+    color: #eee;
+    border: 1px solid #444;
+}
+
+.dark-mode .hour-item-btn {
+    background: #444;
+    color: #eee;
+}
+
+.dark-mode .hour-item-btn:hover {
+    background: #555;
+    color: #eee;
+}
+
+.dark-mode .hour-item-btn.remove {
+    background: #8b4d4d;
+    color: #fff;
+}
+
+.dark-mode .hour-item-btn.remove:hover {
+    background: #9a5d5d;
+    color: #fff;
+}
+
+.dark-mode .hour-item-icon {
+    background: #333;
+    color: #bbb;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+}
+
+.dark-mode .hour-item-icon[data-category="Higiene"] {
+    background: #2e3a25;
+}
+.dark-mode .hour-item-icon[data-category="Exercício"] {
+    background: #3a2525;
+}
+.dark-mode .hour-item-icon[data-category="Pet"] {
+    background: #25253a;
+}
+
+.hour-item-input::-webkit-outer-spin-button,
+.hour-item-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.hour-item-input {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.activity-card {
+    background: #fff;
+    color: #222;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 1.2em 1.8em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1em;
+    min-height: 80px;
+    position: relative; /* Add this */
+}
+
+.add-to-list-btn {
+    background: #7c9e6b;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 0.6em 1.5em;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.3s ease, min-width 0.3s ease;
+    white-space: nowrap;
+    width: auto;
+    flex-shrink: 0;
+    min-width: 60px;
+    height: 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; /* Change this */
+    top: 1.2em; /* Position from top */
+    right: 1.2em; /* Position from right */
+    margin: 0; /* Remove the auto margin */
+}
+
+.add-to-list-btn:hover {
+    background: #6b8e5a;
+    transform: scale(1.05);
+    min-width: 120px;
+}
+
+.add-to-list-btn::after {
+    content: "Add to list";
+    opacity: 0;
+}
+
+.add-to-list-btn::before {
+    content: "Add";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.add-to-list-btn:hover::before {
+    opacity: 0;
+}
+
+.add-to-list-btn:hover::after {
+    opacity: 1;
+}
