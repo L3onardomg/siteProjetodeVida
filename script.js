@@ -9,19 +9,83 @@ modeSwitch.addEventListener('click', () => {
 // Render activities in the table
 const activities = [
     {
-        name: "Tomar banho",
-        category: "Higiene",
+        name: "Acordar",
+        category: "Rotina",
         fields: [
-            { type: "bool", key: "temp", options: ["quente", "frio"], value: "quente" },
-            { type: "number", key: "minutes", label: "por", suffix: "minutos", value: 10 }
+            { type: "bool", key: "alarme", options: ["com alarme", "natural"], value: "com alarme" }
         ]
+    },
+    {
+        name: "Alongamento",
+        category: "Exercício",
+        fields: [
+            { type: "number", key: "minutes", label: "por", suffix: "minutos", value: 5 }
+        ]
+    },
+    {
+        name: "Arrumar a cama",
+        category: "Casa",
+        fields: []
+    },
+    {
+        name: "Beber água",
+        category: "Saúde",
+        fields: [
+            { type: "number", key: "copos", label: "", value: 1, suffix: "copos" }
+        ]
+    },
+    {
+        name: "Café da manhã",
+        category: "Alimentação",
+        fields: []
+    },
+    {
+        name: "Colocar ração",
+        category: "Pet",
+        fields: []
+    },
+    {
+        name: "Colocar roupa para lavar",
+        category: "Casa",
+        fields: [
+            { type: "text", key: "option", label: "na Opção", size: "big", value: "", placeholder: "opção da maquina" }
+        ]
+    },
+    {
+        name: "Escovar os dentes",
+        category: "Higiene",
+        fields: []
     },
     {
         name: "Flexão",
         category: "Exercício", 
         fields: [
             { type: "number", key: "sets", label: "", value: 3 },
-            { type: "number", key: "reps", label: "sets de", value: "10",},
+            { type: "number", key: "reps", label: "sets de", value: 10 }
+        ]
+    },
+    {
+        name: "Ir ao mercado",
+        category: "Compras",
+        fields: []
+    },
+    {
+        name: "Lavar a louça",
+        category: "Casa", 
+        fields: []
+    },
+    {
+        name: "Ler notícias",
+        category: "Informação",
+        fields: [
+            { type: "number", key: "minutes", label: "por", suffix: "minutos", value: 10 }
+        ]
+    },
+    {
+        name: "Meditar",
+        category: "Saúde",
+        fields: [
+            { type: "number", key: "minutes", label: "por", suffix: "minutos", value: 5 }
         ]
     },
     {
@@ -33,24 +97,48 @@ const activities = [
         ]
     },
     {
-        name: "Colocar ração",
-        category: "Pet",
+        name: "Planejar o dia",
+        category: "Produtividade",
         fields: []
     },
     {
-        name: "Lavar a louça",
-        category: "Higiene", 
+        name: "Preparar almoço",
+        category: "Alimentação",
         fields: []
     },
     {
-        name: "Colocar roupa para lavar",
+        name: "Regar plantas",
+        category: "Casa",
+        fields: []
+    },
+    {
+        name: "Tomar banho",
         category: "Higiene",
         fields: [
-            { type: "text", key: "option", label: "na Opção", size: "big", value: "", placeholder: "opção da maquina" }
+            { type: "bool", key: "temp", options: ["quente", "frio"], value: "quente" },
+            { type: "number", key: "minutes", label: "por", suffix: "minutos", value: 10 }
+        ]
+    },
+    {
+        name: "Tomar café",
+        category: "Alimentação",
+        fields: [
+            { type: "bool", key: "tipo", options: ["café", "café com leite"], value: "café" }
+        ]
+    },
+    {
+        name: "Tirar o lixo",
+        category: "Casa",
+        fields: []
+    },
+    {
+        name: "Outra atividade",
+        category: "Personalizado",
+        fields: [
+            { type: "text", key: "nome", label: "", size: "big", value: "", placeholder: "digite a atividade" }
         ]
     }
 ];
-
 // Add this array to track scheduled activities
 let scheduledActivities = [];
 
